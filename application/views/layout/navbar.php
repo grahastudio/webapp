@@ -6,190 +6,202 @@ $menuatas           = $this->konfigurasi_model->menu_atas();
 $id_user    = $this->session->userdata('id_user');
 $user_aktif = $this->user_model->detail($id_user);
 
- ?>
-<div class="header py-4">
-  <div class="container">
-    <div class="d-flex">
-       <a class="header-brand" href="<?php echo base_url() ?>">
-         <img style="width:150px;" src="<?php echo base_url('assets/upload/image/'.$site_info->logo) ?>" class="img-fluid" alt="Graha Studio">
-       </a>
+?>
 
-   <div class="d-flex order-lg-2 ml-auto">
-         <?php
-         //Cek Data Order Ada atau Tidak
-         $orderan = $this->cart->contents();
-         $total_order = 'IDR ' .number_format($this->cart->total(),'0',',','.');
-          ?>
-          <div class="dropdown d-none d-md-flex">
-            <a class="nav-link icon" data-toggle="dropdown">
-              <i class="fe fe-shopping-bag"></i>
-              <?php
-              if (empty($orderan)) {
-                echo "";
-              }else{
-                echo "<span class='nav-unread'></span>";
-              }
-               ?>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-               <?php
-               //Kalau Nggak Ada Belanjaan
-               if (empty($orderan)) {?>
-                 <a href="<?php echo base_url('produk')?>" class="dropdown-item d-flex">
-                   <span class="avatar mr-3 align-self-center bg-danger" style="color:#fff;"><i class="fe fe-x"></i> </span>
-                   <div>
-                      Tidak Ada Order
-                   </div>
-                 </a>
-               <?php }else{
-                 //Count Total order
-                 $total_order = 'IDR ' .number_format($this->cart->total(),'0',',','.');
-
-                 //Showing Order
-                 foreach ($orderan as $orderan) {
-
-                 ?>
-                 <a href="<?php echo base_url('order')?>" class="dropdown-item d-flex">
-                   <span class="avatar mr-3 align-self-center bg-success" style="color:#fff;"><i class="fe fe-shopping-cart"></i> </span>
-                   <div>
-                      <strong><?php echo $orderan['name']?></strong>.
-                     <div class="small text-muted">IDR <?php echo number_format($orderan['price'],'0',',','.')?> |  <?php echo $orderan['qty']?> Item IDR <?php echo number_format($orderan['subtotal'],'0',',','.')?></div>
-
-                   </div>
-                 </a>
-
-               <?php
-                 } //foreach Close
-              } ?>
-
-              <div class="dropdown-divider"></div>
-                                 <a href="<?php echo base_url('order')?>" class="dropdown-item"> Total Harga <?php echo $total_order ?></a>
-
-            </div>
-          </div>
-<?php if($this->session->userdata('akses_level') == "Superadmin") { ?>
-
-     <div class="dropdown d-none d-md-flex">
-       <a class="nav-link icon" data-toggle="dropdown">
-         <i class="fe fe-bell"></i>
-         </span>
-         <?php }?>
-         <?php if(!empty($total_kontak)) {
-             echo "<span class='nav-unread'>";
-             echo "<span style='visibility:hidden'>";
-             echo count($total_kontak);
-             echo "</span>";
-             echo "</span>";
-         }else{
-         } ?>
-     <?php if($this->session->userdata('akses_level') == "Superadmin") { ?>
-       </a>
-       <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-         <a href="#" class="dropdown-item d-flex">
-           <span class="avatar mr-3 align-self-center bg-success" style="color:#fff;"><i class="fe fe-mail"></i> </span>
-           <div>
-             Ada <strong><?php echo count($total_kontak);?></strong> Pesan Masuk.
-             <div class="small text-muted">10 minutes ago</div>
-           </div>
-         </a>
-       </div>
-     </div>
-<?php } ?>
-<?php if ($id_user): ?>
-
-     <div class="dropdown">
-        <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-        <img class="avatar" src="<?php echo base_url('assets/upload/image/avatar/'.$user_aktif->foto_user) ?>"></img>
-        <span class="ml-2 d-none d-lg-block">
-        <span class="text-default"> <?php echo $user_aktif->nama ?> </span>
-        <small class="text-muted d-block mt-1"> <?php echo $user_aktif->akses_level ?></small>
+<div class="main-header" data-background-color="white">
+  <div class="nav-top">
+    <div class="container d-flex flex-row">
+      <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+          <i class="fas fa-bars"></i>
         </span>
-        </a>
-       <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-         <a class="dropdown-item" href="<?php echo base_url('myaccount') ?>">
-           <i class="dropdown-icon fe fe-user"></i> My Account
-         </a>
-         <div class="dropdown-divider"></div>
-         <a class="dropdown-item" href="<?php echo base_url('connect/logout') ?>">
-           <i class="dropdown-icon fe fe-log-out"></i> Sign out
-         </a>
-       </div>
-     </div>
-     <?php else: ?>
-       <a href="<?php echo base_url('login')?>" class="nav-link icon">
-         <i class="fe fe-lock"></i>
-        <span class="nav-item">Login</span>
-       </a>
-       <?php endif ?>
-   </div>
-   <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
-     <span class="header-toggler-icon"></span>
-   </a>
- </div>
+      </button>
+      <button class="topbar-toggler more"><i class="fas fa-ellipsis-v"></i></button>
+      <!-- Logo Header -->
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="<?php echo base_url('assets/template/v3/img/logo.svg'); ?>" alt="navbar brand" class="navbar-brand">
+      </a>
+      <!-- End Logo Header -->
+
+      <!-- Navbar Header -->
+      <nav class="navbar navbar-header navbar-expand-lg p-0">
+
+        <div class="container-fluid p-0">
+          <div class="collapse" id="search-nav">
+            <form class="navbar-left navbar-form nav-search ml-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button type="submit" class="btn btn-search pr-1">
+                    <i class="fa fa-search search-icon"></i>
+                  </button>
+                </div>
+                <input type="text" placeholder="Search ..." class="form-control">
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+            <li class="nav-item toggle-nav-search hidden-caret">
+              <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+                <i class="fa fa-search"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown hidden-caret">
+              <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fe fe-globe"></i> Language
+              </a>
+              <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+                <li>
+                  <div class="dropdown-title d-flex justify-content-between align-items-center">
+                    Sekect Language
+                  </div>
+                </li>
+                <li class="see-all">
+                  <?php echo anchor('language/change/id', 'Indonesia (id)') ?>
+                </li>
+                <li class="see-all">
+                  <?php echo anchor('language/change/en', 'English (en)') ?>
+                </li>
+              </ul>
+            </li>
+
+
+
+            <?php if ($id_user) : ?>
+              <li class="nav-item dropdown hidden-caret">
+                <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fe fe-bell"></i>
+                  <span class="notification">4</span>
+                </a>
+                <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                  <li>
+                    <div class="dropdown-title">You have 4 new notification</div>
+                  </li>
+                  <li>
+                    <div class="notif-scroll scrollbar-outer">
+                      <div class="notif-center">
+                        <a href="#">
+                          <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+                          <div class="notif-content">
+                            <span class="block">
+                              New user registered
+                            </span>
+                            <span class="time">5 minutes ago</span>
+                          </div>
+                        </a>
+                        <a href="#">
+                          <div class="notif-icon notif-success"> <i class="fa fa-comment"></i> </div>
+                          <div class="notif-content">
+                            <span class="block">
+                              Rahmad commented on Admin
+                            </span>
+                            <span class="time">12 minutes ago</span>
+                          </div>
+                        </a>
+
+                        <a href="#">
+                          <div class="notif-icon notif-danger"> <i class="fa fa-heart"></i> </div>
+                          <div class="notif-content">
+                            <span class="block">
+                              Farrah liked Admin
+                            </span>
+                            <span class="time">17 minutes ago</span>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <a class="see-all" href="javascript:void(0);">See all notifications<i class="fa fa-angle-right"></i> </a>
+                  </li>
+                </ul>
+              </li>
+
+            <?php else : ?>
+
+
+
+            <?php endif ?>
+
+
+
+            <?php if ($id_user) : ?>
+
+              <li class="nav-item dropdown hidden-caret">
+                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+                  <div class="avatar-sm">
+                    <img src="<?php echo base_url('assets/upload/image/avatar/' . $user_aktif->foto_user) ?>" alt="..." class="avatar-img rounded-circle">
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-user animated fadeIn">
+                  <div class="dropdown-user-scroll scrollbar-outer">
+                    <li>
+                      <div class="user-box">
+                        <div class="avatar-lg"><img src="<?php echo base_url('assets/upload/image/avatar/' . $user_aktif->foto_user) ?>" alt="image profile" class="avatar-img rounded"></div>
+                        <div class="u-text">
+                          <h4><?php echo $user_aktif->nama; ?></h4>
+                          <p class="text-muted"><?php echo $user_aktif->email; ?></p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="<?php echo base_url('myaccount'); ?>">My Profile</a>
+                      <a class="dropdown-item" href="#">Inbox</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Account Setting</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="<?php echo base_url('connect/logout') ?>">Logout</a>
+                    </li>
+                  </div>
+                </ul>
+              </li>
+
+            <?php else : ?>
+
+              <li class="nav-item hidden-caret">
+                <a class="nav-link" href="<?php echo base_url('login'); ?>" aria-expanded="false">
+                  <i class="far fa-user"></i> Login
+                </a>
+              </li>
+
+            <?php endif ?>
+
+
+
+          </ul>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+    </div>
+  </div>
+  <div class="nav-bottom bg-white">
+    <h3 class="title-menu d-flex d-lg-none">
+      Menu
+      <div class="close-menu"> <i class="fas fa-times"></i></div>
+    </h3>
+    <div class="container d-flex flex-row">
+      <ul class="nav page-navigation page-navigation-secondary">
+
+        <?php foreach ($menuatas as $menuatas) { ?>
+          <?php if (empty($this->session->userdata('language')) or $this->session->userdata('language') == 'id') { ?>
+            <li class="nav-item submenu">
+              <a class="nav-link" href="<?php echo $menuatas->url; ?>">
+                <span class="menu-title"><?php echo $menuatas->nama_menu; ?></span>
+              </a>
+            </li>
+          <?php } else { ?>
+            <li class="nav-item submenu">
+              <a class="nav-link" href="<?php echo $menuatas->url; ?>">
+                <span class="menu-title"><?php echo $menuatas->nama_menu_en; ?></span>
+              </a>
+            </li>
+
+          <?php } ?>
+
+        <?php } ?>
+
+
+      </ul>
+    </div>
+  </div>
 </div>
-</div>
-<div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
-<div class="container">
- <div class="row align-items-center">
-   <div class="col-lg-3 ml-auto">
-     <form class="input-icon my-3 my-lg-0">
-       <input type="search" class="form-control header-search" placeholder="Search&hellip;" tabindex="1">
-       <div class="input-icon-addon">
-         <i class="fe fe-search"></i>
-       </div>
-     </form>
-   </div>
-   <div class="col-lg order-lg-first">
-     <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
-       <li class="nav-item">
-         <a href="<?php echo base_url() ?>" <?php if($this->uri->segment(0)==""){echo "class='nav-link active'";}?>><i class="fe fe-home"></i> Home</a>
-       </li>
-       <li class="nav-item">
-         <a href="<?php echo base_url('page/tentang-kami') ?>"  <?php if($this->uri->segment(2)=="tentang-kami"){echo "class='nav-link active'";}?>><i class="fe fe-github"></i> Tentang Kami</a>
-       </li>
-       <li class="nav-item">
-         <a href="<?php echo base_url('layanan') ?>" <?php if($this->uri->segment(1)=="layanan"){echo "class='nav-link active'";}?>><i class="fe fe-briefcase"></i> Layanan</a>
-       </li>
-       <li class="nav-item">
-         <a href="<?php echo base_url('galeri') ?>" <?php if($this->uri->segment(1)=="galeri"){echo "class='nav-link active'";}?>><i class="fe fe-layers"></i> Portofolio</a>
-       </li>
-       <li class="nav-item">
-         <a href="<?php echo base_url('download') ?>" <?php if($this->uri->segment(1)=="download"){echo "class='nav-link active'";}?>><i class="fe fe-download-cloud"></i> Download</a>
-       </li>
-       <li class="nav-item">
-         <a href="https://blog.grahastudio.com" <?php if($this->uri->segment(1)==""){echo "class='nav-link active'";}?>><i class="fe fe-file"></i> Blog</a>
-       </li>
-       <li class="nav-item">
-         <a href="https://www.grahastudio.com/kontak" <?php if($this->uri->segment(1)=="kontak"){echo "class='nav-link active'";}?>><i class="fe fe-mail"></i> Kontak</a>
-       </li>
-       <?php if($this->session->userdata('akses_level') == "Superadmin") { ?>
-       <li class="nav-item dropdown">
-         <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-file"></i> Dashboard</a>
-         <div class="dropdown-menu dropdown-menu-arrow">
-           <a href="<?php echo base_url('member/dashboard') ?>" class="dropdown-item ">Dashboard</a>
-           <a href="<?php echo base_url('member/berita') ?>" class="dropdown-item ">Berita</a>
-           <a href="<?php echo base_url('member/kategori') ?>" class="dropdown-item ">Kategori</a>
-           <a href="<?php echo base_url('member/page') ?>" class="dropdown-item ">Halaman</a>
-           <a href="<?php echo base_url('member/download') ?>" class="dropdown-item ">Download</a>
-           <a href="<?php echo base_url('member/layanan') ?>" class="dropdown-item ">Layanan</a>
-           <a href="<?php echo base_url('member/galeri') ?>" class="dropdown-item ">Portofolio</a>
-           <a href="<?php echo base_url('member/kontak') ?>" class="dropdown-item ">Pesan Masuk <?php if(!empty($total_kontak)) {
-             echo "<span class='tag tag-red'>";
-             echo count($total_kontak);
-             echo "</span>";
-                 }else {
-                 } ?></a>
-           <a href="<?php echo base_url('member/user') ?>" class="dropdown-item ">Data Member</a>
-           <a href="<?php echo base_url('member/konfigurasi') ?>" class="dropdown-item ">Seting Web</a>
-           <a href="<?php echo base_url('member/konfigurasi/logo') ?>" class="dropdown-item ">Logo</a>
-           <a href="<?php echo base_url('member/konfigurasi/icon') ?>" class="dropdown-item ">Icon</a>
-           <a href="<?php echo base_url('member/homepage') ?>" class="dropdown-item ">Homepage Seting</a>
-         </div>
-       </li>
-     <?php } ?>
-     </ul>
-   </div>
- </div>
-</div>
-</div>
-<div class="">

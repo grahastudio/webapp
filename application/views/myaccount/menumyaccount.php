@@ -31,7 +31,6 @@
       <?php if ($this->session->userdata('nama')) : ?>
         <a href="<?php echo base_url('myaccount') ?>" class="list-group-item list-group-item-action active"><span class="icon mr-3"><i class="fe fe-home"></i></span>My Account</a>
         <a href="<?php echo base_url('myaccount/profile') ?>" class="list-group-item list-group-item-action"><span class="icon mr-3"><i class="fe fe-user"></i></span>Profile Saya</a>
-        <a href="<?php echo base_url('order') ?>" class="list-group-item list-group-item-action"><span class="icon mr-3"><i class="fe fe-shopping-bag"></i></span>Order Saya</a>
         <a href="<?php echo base_url('myaccount/order') ?>" class="list-group-item list-group-item-action"><span class="icon mr-3"><i class="fe fe-clock"></i></span>History Order</a>
         <a href="<?php echo base_url('myaccount/ubah_password') ?>" class="list-group-item list-group-item-action"><span class="icon mr-3"><i class="fe fe-lock"></i></span>Ubah Password</a>
         <a href="<?php echo base_url('connect/logout') ?>" class="list-group-item list-group-item-action"><span class="icon mr-3"><i class="fe fe-log-out"></i></span>Keluar</a>
